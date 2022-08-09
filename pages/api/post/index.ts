@@ -10,7 +10,7 @@ export default async function handler(
     const query = allPostsQuery()
 
     const data = await client.fetch(query)
-    res.status(200).json(data)
+    return res.status(200).json(data)
   }
 
   res.status(200).json({ name: "Response Success" })
