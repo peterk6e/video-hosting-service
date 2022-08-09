@@ -1,6 +1,7 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import useAuthStore from "../store/authStore"
 import { GoogleLogin, googleLogout } from "@react-oauth/google"
 import { createOrGetUser } from "../utils"
 import { useRouter } from "next/router"
@@ -11,7 +12,7 @@ import { IoMdAdd } from "react-icons/io"
 import Logo from "../utils/logo.png"
 
 const Navbar = () => {
-  const user = null
+  const { userProfile, addUser, removeUser } = useAuthStore()
 
   return (
     <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
@@ -27,12 +28,41 @@ const Navbar = () => {
       </Link>
       <div className=''>SEARCH</div>
       <div className=''>
-        {user ? (
-          <div>Logged in</div>
+        {userProfile ? (
+          <div className='flex gap-5 md:gap-10'>
+            <Link href='/upload'>
+              <button className='border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2'>
+                <IoMdAdd className='text-xl' />
+                {` `}
+                <span className='hidden md:block'>Upload</span>
+              </button>
+            </Link>
+            {userProfile && (
+              <Link href={"/"}>
+                <>
+                  <Image
+                    width={40}
+                    height={40}
+                    className='rounded-full'
+                    src={userProfile.image}
+                    alt='profile photo'
+                  />
+                </>
+              </Link>
+            )}
+            <button type="button" title="Logout" className="px-2" onClick={
+              ()=>{
+                googleLogout()
+                removeUser()
+              }
+            }>
+              <AiOutlineLogout color="red" fontSize={21}/>
+            </button>
+          </div>
         ) : (
           <GoogleLogin
             onSuccess={response => {
-              createOrGetUser(response)
+              createOrGetUser(response, addUser)
             }}
             onError={() => {
               console.log("error")
