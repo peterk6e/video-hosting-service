@@ -11,6 +11,12 @@ export default async function handler(
 
     const data = await client.fetch(query)
     return res.status(200).json(data)
+  } else if (req.method === "POST") {
+    const document = req.body
+
+    client.create(document).then(() => {
+      res.status(201).json("video created")
+    })
   }
 
   res.status(200).json({ name: "Response Success" })
