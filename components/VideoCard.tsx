@@ -72,29 +72,29 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           }}>
           <Link href='/'>
             <video
-              className='lg:w-[600px] h-[300px] md:h-[400px] lg:w-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
+              className='lg:w-[700px] h-[300px] md:h-[400px] lg:w-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
               loop
               ref={videoRef}
               src={post.video.asset.url}></video>
           </Link>
           {isHover && (
-            <div className="flex justify-between p-2 w-[100px] ">
+            <div className="flex justify-between p-2 w-[80px] ">
               {playing ? (
-                <button onClick={onVideoPress}>
-                  <BsFillPauseFill className='text-black text-xl lg:text-2xl' />
+                <button onClick={onVideoPress} className='animate-pulse'>
+                  <BsFillPauseFill className='text-gray-600 text-xl lg:text-2xl' />
                 </button>
               ) : (
                 <button onClick={onVideoPress}>
-                  <BsFillPlayFill className='text-black text-xl lg:text-2xl' />
+                  <BsFillPlayFill className='text-gray-600 text-xl lg:text-2xl' />
                 </button>
               )}
               {isVideoMuted ? (
                 <button onClick={() => setIsVideoMuted(false)}>
-                  <HiVolumeOff className='text-black text-xl lg:text-2xl' />
+                  <HiVolumeOff className='text-gray-600 text-xl lg:text-2xl' />
                 </button>
               ) : (
                 <button onClick={() => setIsVideoMuted(true)}>
-                  <HiVolumeUp className='text-black text-xl lg:text-2xl' />
+                  <HiVolumeUp className='text-gray-600 text-xl lg:text-2xl' />
                 </button>
               )}
             </div>
